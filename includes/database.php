@@ -1,13 +1,23 @@
 <?php
 
-$db_host = "elvisdb.rowan.edu";
-$db_name = "toppin22";
-$db_user = "toppin22";
-$db_pass = "142LoveDatabases!!";
+/**
+* Get the database connection_aborted
+*
+* @return object Connection to a MySQL server
+*/
 
-$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+function getDB() {
+	$db_host = "elvisdb.rowan.edu";
+	$db_name = "toppin22";
+	$db_user = "toppin22";
+	$db_pass = "142LoveDatabases!!";
 
-if (mysqli_connect_error()){
-                echo mysqli_connect_error();
-                exit;
+	$conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+
+	if (mysqli_connect_error()){
+					echo mysqli_connect_error();
+					exit;
+	}
+	
+	return $conn;
 }
