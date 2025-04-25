@@ -1,5 +1,5 @@
 <?php
-
+	
 	require 'includes/database.php';
 	
 	$errors = [];
@@ -23,10 +23,15 @@
 		}
 		
 		if ($published_at != '';){
-			$date_time = date_create_from_format('Y-m-d H:i:s', $published_at);
+			$date_time = date_create_from_format('Y-m-d\TH:i', $published_at);
 			
 			if ($date_time === false){
 				$errors[] = 'Invalid date and time.';
+			}else{
+				$date_errors = date_get_last_errors();
+				if ($date_errors['warning_count'] > 0){
+				$errors[] = 'Invalid date and time.';
+				}
 			}
 		}
 		
@@ -51,7 +56,16 @@
 			
 				if (mysqli_stmt_execute($stmt)){
 					$id = mysqli_insert_id($conn);
-					echo "Inserted record with ID: $id";
+					
+					if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off'){
+						$protocol = 'https';
+					}else{
+						$protocol = 'http';
+					}
+					
+					header("Location: $protocol://" . $_SERVER['HTTP_HOST'] . "/~toppin22/article.php?id=$id");
+					exit;
+					
 				}else {
 					echo mysqli_stmt_error($stmt);
 				}

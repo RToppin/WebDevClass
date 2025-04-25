@@ -20,6 +20,7 @@ if ($results === false){
 
 <?php require 'includes/header.php'; ?>
 
+<a href="new-article.php">Add New Article</a>
 
 <?php if (empty($articles)): ?>
         <p>No articles found. =(</p>
